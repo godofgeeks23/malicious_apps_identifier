@@ -52,7 +52,7 @@ for term in terms:
 # print(get_permissions("com.google.android.apps.translate"))
 
 
-filtered_list = []
+filtered_list = filter_currency_developer(appslist)
 
 
 code_start = """
@@ -71,7 +71,7 @@ code_end = """
 </body>
 </html>
 """
-
+ 
 # dynamic_content = f"<img src='{appslist[0]['icon']}' alt='Italian Trulli' >"
 dynamic_content = ""
 
@@ -105,6 +105,6 @@ for apps in appslist:
 
 code = code_start + dynamic_content + code_end
 
-file = open("test.html","w")
+file = open("filter1.html","w")
 file.write(code)
 file.close()
