@@ -20,9 +20,10 @@ def filter_currency_developer(orglist):
 
     result = []
     for app in orglist:
-        if(app['currency'] == 'INR'):
-            if(app['developer'] == '' or app['developer'].endswith('@gmail.com') or app['developer'].endswith('@hotmail.com') or app['developer'].endswith('@yahoo.com')):
-                result.append(app)
+        # if(app['currency'] == 'INR'):
+            # if(app['developerEmail'] == '' or app['developerEmail'].endswith('@gmail.com') or app['developerEmail'].endswith('@hotmail.com') or app['developerEmail'].endswith('@yahoo.com')):
+        if(app['developerEmail'].endswith('@gmail.com') or app['developerEmail'].endswith('@hotmail.com') or app['developerEmail'].endswith('@yahoo.com')):
+            result.append(app)
     return result
 
 def filter_permissions(orglist):
@@ -38,6 +39,10 @@ def filter_permissions(orglist):
         # result.append(perms)
     # return result
 
+def truncate(str, max_len):
+    if len(str) > max_len:
+        return str[:max_len] + '...'
+    return str
 
 keywords_file = open("keywords.txt", "r")
 terms = keywords_file.read().splitlines()
@@ -75,29 +80,49 @@ code_end = """
 # dynamic_content = f"<img src='{appslist[0]['icon']}' alt='Italian Trulli' >"
 dynamic_content = ""
 
-for apps in appslist:
+for apps in filtered_list:
     dynamic_content += f"""
-    <div class="app">
-        <div class="icon_box">
-            <img src="{apps['icon']}">
+        <div class="app">
+            <div class="section1">
+                <div class="icon_box">
+                    <img
+                        src="{apps['icon']}">
+                </div>
+                <p class="fieldheading">Title
+                <p class="fieldvalue">{apps['title']}</p></p>
+                <p class="fieldheading">Package Name
+                <p class="fieldvalue">{apps['appId']}</p></p>
+                <p class="fieldheading">Installs
+                <p class="fieldvalue">{apps['installs']}</p></p>
+            </div>
+            <div class="section2">
+                <p class="fieldheading">Release Date
+                <p class="fieldvalue">{apps['released']}</p>
+                </p>
+                <p class="fieldheading">Genre
+                <p class="fieldvalue">{apps['genre']}</p></p>
+                <p class="fieldheading">Summary
+                <p class="fieldvalue">{apps['summary']}</p></p>
+                <p class="fieldheading">Developer
+                <p class="fieldvalue">{apps['developer']}</p></p>
+                <p class="fieldheading">Developer ID
+                <p class="fieldvalue">{apps['developerId']}</p></p>
+                <p class="fieldheading">Developer EMail
+                <p class="fieldvalue">{apps['developerEmail']}</p></p>
+                <p class="fieldheading">Developer Website
+                <p class="fieldvalue">{apps['developerWebsite']}</p></p>
+                <p class="fieldheading">Developer Address
+                <p class="fieldvalue">{apps['developerAddress']}</p></p>
+                <p class="fieldheading">Ratings
+                <p class="fieldvalue">{apps['ratings']}</p></p>
+                <p class="fieldheading">Reviews
+                <p class="fieldvalue">{apps['reviews']}</p></p>
+            </div>
+            <div class="section3">
+                <p class="fieldheading">Description:
+                <p class="fieldvalue">{truncate(apps['description'], 200)}</p></p>
+            </div>
         </div>
-        <div class="details">
-            <p><b>Title:</b> {apps['title']}</p>
-            <p><b>Package Name:</b> {apps['appId']}</p>
-            <p><b>Release Date:</b> {apps['released']}</p>
-            <p><b>Installs:</b> {apps['installs']}</p>
-            <p><b>Genre:</b> {apps['genre']}</p>
-            <p><b>Summary:</b> {apps['summary']}</p>
-            <p><b>Developer:</b> {apps['developer']}</p>
-            <p><b>Developer ID:</b> {apps['developerId']}</p>
-            <p><b>Developer EMail:</b> {apps['developerEmail']}</p>
-            <p><b>Developer Website:</b> {apps['developerWebsite']}</p>
-            <p><b>Developer Address:</b> {apps['developerAddress']}</p>
-            <p><b>Ratings:</b> {apps['ratings']}</p>
-            <p><b>Reviews:</b> {apps['reviews']}</p>
-            <p><b>Description:</b> {apps['description']}</p>
-        </div>
-    </div>
 """
 
 
@@ -105,6 +130,6 @@ for apps in appslist:
 
 code = code_start + dynamic_content + code_end
 
-file = open("filter1.html","w")
+file = open("test.html","w")
 file.write(code)
 file.close()
