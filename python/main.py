@@ -120,16 +120,13 @@ for apps in filtered_list:
             </div>
             <div class="section3">
                 <p class="fieldheading">Description:
-                <p class="fieldvalue">{truncate(apps['description'], 200)}</p></p>
+                <p class="fieldvalue">{truncate(apps['description'], 500)}</p></p>
             </div>
         </div>
 """
 
-
-
-
 code = code_start + dynamic_content + code_end
 
-file = open("test.html","w")
+file = open("test.html","w", encoding="utf-8")
 file.write(code)
 file.close()
