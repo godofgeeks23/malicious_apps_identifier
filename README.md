@@ -2,6 +2,8 @@
 
 malicious_apps_identifier
 
+(View at : https://godofgeeks23.github.io/malicious_apps_identifier/python/test.html)
+
 ## Run
 
 ```
